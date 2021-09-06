@@ -37,11 +37,11 @@
         >
       </div>
       <nav class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-        <router-link to="/category/technology">
+        <router-link to="/category-auth/technology-auth">
           <button
-          @click="filter1"
+            @click="filter1"
             class="
-            my-5
+              my-5
               w-full
               block
               px-4
@@ -61,11 +61,11 @@
             Technology
           </button>
         </router-link>
-        <router-link to="/category/toys">
+        <router-link to="/category-auth/toys-auth">
           <button
-          @click="filter2"
+            @click="filter2"
             class="
-            my-5
+              my-5
               w-full
               block
               px-4
@@ -85,11 +85,11 @@
             Toys
           </button>
         </router-link>
-         <router-link to="/category/clothing">
+        <router-link to="/category-auth/clothing-auth">
           <button
-           @click="filter3"
+            @click="filter3"
             class="
-            my-5
+              my-5
               w-full
               block
               px-4
@@ -109,11 +109,11 @@
             Clothing
           </button>
         </router-link>
-         <router-link to="/category/accesories">
+        <router-link to="/category-auth/accesories-auth">
           <button
-           @click="filter4"
+            @click="filter4"
             class="
-            my-5
+              my-5
               w-full
               block
               px-4
@@ -133,11 +133,11 @@
             Accesories
           </button>
         </router-link>
-         <router-link to="/category/household-products">
+        <router-link to="/category-auth/household-products-auth">
           <button
-           @click="filter5"
+            @click="filter5"
             class="
-            my-5
+              my-5
               w-full
               block
               px-4
@@ -165,77 +165,76 @@
 <script>
 import axios from "axios";
 
-let url = 'http://localhost:4000/productsdata/';
+let url = "http://localhost:4000/productsdata/";
 
 export default {
-  name: "NavVer",
-  data(){
-    return{
+  name: "NavVerAuth",
+  data() {
+    return {
       category: {
-        one: 'tegnologia',
-        two: 'jugetes',
-        three: 'ropa',
-        four: 'accesorios',
-        five: 'hogar',
+        one: "tegnologia",
+        two: "jugetes",
+        three: "ropa",
+        four: "accesorios",
+        five: "hogar",
       },
-    }
+    };
   },
-  methods:{
-    clearStore(){
-      this.$store.commit('setProductsCategories', []);
+  methods: {
+    clearStore() {
+      this.$store.commit("setProductsCategories", []);
     },
-    async filter1(){
+    async filter1() {
       try {
-        let res = await axios.get(url+this.category.one);
+        let res = await axios.get(url + this.category.one);
         let data = await res.data;
         this.clearStore();
-        this.$store.commit('setProductsCategories', data);
+        this.$store.commit("setProductsCategories", data);
       } catch (error) {
         console.log(error);
       }
     },
-    async filter2(){
+    async filter2() {
       try {
-        let res = await axios.get(url+this.category.two);
+        let res = await axios.get(url + this.category.two);
         let data = await res.data;
         this.clearStore();
-        this.$store.commit('setProductsCategories', data);
+        this.$store.commit("setProductsCategories", data);
       } catch (error) {
         console.log(error);
       }
     },
-    async filter3(){
+    async filter3() {
       try {
-        let res = await axios.get(url+this.category.three);
+        let res = await axios.get(url + this.category.three);
         let data = await res.data;
         this.clearStore();
-        this.$store.commit('setProductsCategories', data);
+        this.$store.commit("setProductsCategories", data);
       } catch (error) {
         console.log(error);
       }
     },
-    async filter4(){
+    async filter4() {
       try {
-        let res = await axios.get(url+this.category.four);
+        let res = await axios.get(url + this.category.four);
         let data = await res.data;
         this.clearStore();
-        this.$store.commit('setProductsCategories', data);
+        this.$store.commit("setProductsCategories", data);
       } catch (error) {
         console.log(error);
       }
     },
-    async filter5(){
+    async filter5() {
       try {
-        let res = await axios.get(url+this.category.five);
+        let res = await axios.get(url + this.category.five);
         let data = await res.data;
         this.clearStore();
-        this.$store.commit('setProductsCategories', data);
+        this.$store.commit("setProductsCategories", data);
       } catch (error) {
         console.log(error);
       }
     },
-    
-  }
+  },
 };
 </script>
 
