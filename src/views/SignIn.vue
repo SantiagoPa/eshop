@@ -42,7 +42,7 @@
           </router-link>
         </p>
       </div>
-      <form class="mt-8 space-y-6" action="#">
+      <form class="mt-8 space-y-6" @submit.prevent='signIn'>
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div class="">
@@ -68,10 +68,11 @@
                 sm:text-sm
               "
               placeholder="Name"
+              v-model="name"
             />
           </div>
           <div class="">
-            <label for="email-address" class="sr-only">cellphone</label>
+            <label for="email-address" class="sr-only">phonenumber</label>
             <input
               required
               class="
@@ -93,6 +94,7 @@
                 sm:text-sm
               "
               placeholder="Cellphone"
+              v-model="phonenumber"
             />
           </div>
           <div class="">
@@ -120,6 +122,7 @@
                 sm:text-sm
               "
               placeholder="Email address"
+              v-model="email"
             />
           </div>
           <div class="">
@@ -147,6 +150,7 @@
                 sm:text-sm
               "
               placeholder="Password"
+              v-model="password"
             />
           </div>
         </div>
@@ -196,11 +200,53 @@
   </div>
 </template>
 <script>
+
+import axios from "axios";
 import Nav from "@/components/Nav.vue";
+
+let url= 'http://localhost:4000/costumers';
+
+class User{
+  constructor(email, name, phonenumber, password){
+    this.email = email ,
+    this.name= name,
+    this.phonenumber= phonenumber,
+    this.password= password
+  }
+}
+
 export default {
   name: "SignIn",
   components:{
     Nav,
+  },
+  data(){
+    return{
+      user: new User(),
+    }
+  },
+  methods:{
+    async signIn(){
+      try {
+        let data = await axios.post(url,
+        {
+
+          "emailcostumer": this.email,
+          "namecostumer": this.name,
+          "phonenumbercostumer": this.phonenumber,
+          "passwordcostumer": this.password,
+        
+        });
+        alert(`${data.data.message}`);
+        console.log(data);
+        if(data.data.message == 'user added'){
+          this.$router.push('/login');
+        }
+      } catch (error) {
+        console.log('No se pudo registrar al usuario');
+        console.log(error);
+      }
+    }
   }
 };
 </script>

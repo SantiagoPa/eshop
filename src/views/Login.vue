@@ -1,7 +1,7 @@
 <template>
-<div>
-  <Nav/>
-</div>
+  <div>
+    <Nav />
+  </div>
   <div
     class="
       min-h-screen
@@ -33,7 +33,8 @@
         </h2>
         <p class="mt-2 text-center text-md text-gray-600">
           Or
-          <router-link to="/sign-in"
+          <router-link
+            to="/sign-in"
             href="create.html"
             class="font-medium text-lg text-blue-600 hover:text-blue-400"
           >
@@ -41,13 +42,13 @@
           </router-link>
         </p>
       </div>
-      <form class="mt-8 space-y-6" action="#" @submit.prevent='login'>
+      <form class="mt-8 space-y-6" action="#" @submit.prevent="login">
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div class="p-5">
             <label for="email-address" class="sr-only">Email address</label>
             <input
-            type="email"
+              type="email"
               required
               class="
                 appearance-none
@@ -66,16 +67,15 @@
                 focus:border-blue-500
                 focus:z-10
                 sm:text-sm
-              
               "
               v-model="user"
               placeholder="Email address"
-              />
+            />
           </div>
           <div class="p-5">
             <label for="password" class="sr-only">Password</label>
             <input
-            type="password"
+              type="password"
               required
               class="
                 appearance-none
@@ -142,8 +142,8 @@
           </button>
         </div>
       </form>
-      {{userAuth}}
-      {{userAdmin}}
+      {{ userAuth }}
+      {{ userAdmin }}
     </div>
   </div>
 </template>
@@ -155,68 +155,76 @@ import { onMounted, computed } from "vue";
 
 import Nav from "@/components/Nav.vue";
 
-let url= 'http://localhost:4000/login';
+let url = "http://localhost:4000/login";
 
 export default {
   name: "Login",
-  components:{
-    Nav
+  components: {
+    Nav,
   },
-  data(){
-    return{
-      user: '',
-      password: '',
+  data() {
+    return {
+      user: "",
+      password: "",
       loginAuth: false,
-    }
+    };
   },
-  setup(){
+  setup() {
     const store = useStore();
-    onMounted(()=>{
-      store.dispatch('getUserAdmin');
+    onMounted(() => {
+      store.dispatch("getUserAdmin");
     });
-    const userAdmin = computed(()=> store.state.userAdmin);
-    const userAuth  = computed(()=> store.state.userAuth);
-    return {userAdmin,userAuth};
+    const userAdmin = computed(() => store.state.userAdmin);
+    const userAuth = computed(() => store.state.userAuth);
+    return { userAdmin, userAuth };
   },
-  computed:{
-    
+  mounted() {
+
   },
-  methods:{
-    
-    async loginPost(){
+  methods: {
+    async loginPost() {
       try {
-        let res = await axios.post(url,
-        {
-          "emailcostumer": this.user,
-          "passwordcostumer": this.password,
+        let res = await axios.post(url, {
+          emailcostumer: this.user,
+          passwordcostumer: this.password,
         });
         //let data = await res.data;
+        let user = await res.data;
+        console.log(user);
+        
+        sessionStorage.setItem("my-token", user.token);
+        sessionStorage.setItem("id-user", user.dataVec[0].idcostumer);
+        sessionStorage.setItem("name-user", user.dataVec[0].namecostumer);
+
         if (res.status == 200) {
-          console.log('login successfully');
+          console.log("login successfully");
           this.loginAuth = true;
           if (!this.userAuth) {
-            this.$store.commit('setUserAuth',this.loginAuth);
+            this.$store.commit("setUserAuth", this.loginAuth);
             console.log(this.userAuth);
-            this.$router.push('/home-auth');
           }
+          this.$router.push('/home-auth')
         } else {
-          console.log('invalid login');
+          console.log("invalid login");
         }
       } catch (error) {
         console.log(error);
-        alert('wrong credentials');
+        alert("wrong credentials");
       }
     },
 
-    login(){
-      if(this.user && this.password){
-        if (this.user === this.userAdmin.user && this.password === this.userAdmin.password) {
-          this.$router.push('/admin');
-        }else{
+    login() {
+      if (this.user && this.password) {
+        if (
+          this.user === this.userAdmin.user &&
+          this.password === this.userAdmin.password
+        ) {
+          this.$router.push("/admin");
+        } else {
           this.loginPost();
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

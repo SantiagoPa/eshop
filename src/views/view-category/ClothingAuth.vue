@@ -3,13 +3,13 @@
     <NavAuth/>
   </div>
   <div class="h-screen w-screen flex">
-    <div class="">
+    <div>
       <NavVerAuth />
     </div>
     <div class="container  flex flex-row flex-wrap bg-white">
       <Card
-        v-for="product of products" :key="product.idproduct"
-        :product="product" 
+        v-for="product of productsC" :key="product.id"
+        :product="product"
       />
     </div>
   </div>
@@ -17,14 +17,14 @@
 
 <script>
 import { useStore } from "vuex";
-import { onMounted, computed } from "vue";
+import { computed } from "vue";
 
 import NavAuth from "@/components/NavAuth.vue";
 import NavVerAuth from "@/components/NavVerAuth.vue";
 import Card from "@/components/Card.vue";
 
 export default {
-  name: "CatgoryAuth",
+  name: "ClothingAuth",
   components: {
     NavAuth,
     NavVerAuth,
@@ -37,20 +37,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    onMounted(()=>{
-      store.dispatch('getProducts');
-    });
-
-    const products = computed(()=> store.state.products);
-    return {products};
+    const productsC = computed(()=> store.state.productsCategories);
+    return {productsC};
   },
-  mounted(){
-    if (sessionStorage.getItem('my-token')) {
-      console.log('home-auth');
-    }else{
-      this.$router.push('/');
-      console.log('home-auth negade');
-    }
-  }
 };
 </script>
