@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mt-5 justify-between">
+  <div class="flex mt-5 justify-between mr-5 xl:ml-10">
     <pre>
       {{products}}
     </pre>

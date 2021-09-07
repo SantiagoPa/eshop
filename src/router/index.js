@@ -80,6 +80,70 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Admin.vue')
   },
   {
+    path: '/admin/product',
+    name: 'ProductAdmin',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/ProductAdmin.vue')
+  },
+  {
+    path: '/admin/purchase',
+    name: 'AdminPurchase',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/AdminPurchase.vue')
+  },
+  {
+    path: '/admin/users',
+    name: 'AdminUsers',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/AdminUsers.vue')
+  },
+  {
+    path: '/admin/category',
+    name: 'AdminCategory',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/AdminCategory.vue')
+  },
+  {
+    path: '/admin/provider',
+    name: 'AdminProvider',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/AdminProvider.vue')
+  },
+  {
+    path: '/admin/product/edit-product',
+    name: 'AdminEditProduct',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/AdminEditProduct.vue')
+  },
+  {
+    path: '/admin/category/edit-category',
+    name: 'AdminEditCategory',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/AdminEditCategory.vue')
+  },
+  {
+    path: '/admin/provider/edit-provider',
+    name: 'AdminEditProvider',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/view-admin/AdminEditProvider.vue')
+  },
+  {
     path: '/home-auth',
     name: 'HomeAuth',
     // route level code-splitting
@@ -102,6 +166,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Account.vue')
+  },
+  {
+    path: '/home-auth/account/setting',
+    name: 'AccountEdit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/AccountEdit.vue')
   },
   {
     path: '/category-auth/cart',
@@ -167,7 +239,8 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/view-category/HouseholdAuth.vue')
   },
-  { path: '/:pathMatch(.*)*', 
+  { 
+    path: '/:pathMatch(.*)*', 
     name: 'Error404', 
     component: () => import(/* webpackChunkName: "about" */ '../views/Error404.vue')
   },

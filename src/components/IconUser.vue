@@ -128,9 +128,8 @@ export default {
       if (this.userAuth) {
         this.$store.commit("setUserAuth", this.logoutUser);
         console.log(this.userAuth);
+        alert('we recommend closing the browser')
         console.log('logout successfully');
-        window.location.reload(true);
-        this.$router.push("/");
       }
     },
   },

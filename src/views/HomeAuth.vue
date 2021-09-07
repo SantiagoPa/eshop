@@ -4,7 +4,7 @@
   </div>
   <div class="flex flex-col">
     <h1 class="text-6xl mt-16 p-2 w-full shadow-2xl inline-flex justify-center">
-      welcomo {{this.nameUser}}!! to the Eshop store, 
+      welcomo {{user.data.namecostumer}}!! to the Eshop store, 
     </h1>
     <router-link to="/category-auth">
       <button class="mt-10 text-3xl text-white bg-indigo-400 hover:bg-indigo-600 p-5 rounded-xl">
@@ -18,6 +18,8 @@
 
 // @ is an alias to /src
 import NavAuth from "@/components/NavAuth.vue";
+import { useStore } from 'vuex';
+import { computed } from '@vue/reactivity';
 
 export default {
   name: 'HomeAuth',
@@ -28,6 +30,11 @@ export default {
     return {
       nameUser:'',
     }
+  },
+  setup(){
+    const store = useStore();
+    const user = computed(()=>store.state.accountEdit);
+    return{user}
   },
   mounted(){
     const user  = sessionStorage.getItem('name-user');

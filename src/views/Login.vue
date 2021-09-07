@@ -191,16 +191,17 @@ export default {
         //let data = await res.data;
         let user = await res.data;
         console.log(user);
-        
         sessionStorage.setItem("my-token", user.token);
         sessionStorage.setItem("id-user", user.dataVec[0].idcostumer);
         sessionStorage.setItem("name-user", user.dataVec[0].namecostumer);
-
+        sessionStorage.setItem("email-user", user.dataVec[0].emailcostumer);
+        let data = user.dataVec[0];
         if (res.status == 200) {
           console.log("login successfully");
           this.loginAuth = true;
           if (!this.userAuth) {
             this.$store.commit("setUserAuth", this.loginAuth);
+            this.$store.commit("setAccountEdit", {data});
             console.log(this.userAuth);
           }
           this.$router.push('/home-auth')

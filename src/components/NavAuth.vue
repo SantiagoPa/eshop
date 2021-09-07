@@ -5,16 +5,35 @@
         <LogoAuth />
       </div>
       <div class="flex flex-row">
-        <router-link
-          to="/category-auth/purchase/list-purchase"
-          class="mr-4 p-2 rounded-md hover:bg-indigo-100 hover:text-gray-800"
-          >Purchased</router-link
-        >
-        <router-link
-          to="/category-auth"
-          class="mr-4 p-2 rounded-md hover:bg-indigo-100 hover:text-gray-800"
-          >Category</router-link
-        >
+        <div>
+          <router-link
+            v-show="purchase"
+            to="/category-auth/purchase/list-purchase"
+            class="
+              mr-4
+              m-5
+              p-2
+              rounded-md
+              hover:bg-indigo-100
+              hover:text-gray-800
+            "
+            >Invoice</router-link
+          >
+        </div>
+        <div>
+          <router-link
+            to="/category-auth"
+            class="
+              mr-4
+              mb-5
+              p-2
+              rounded-md
+              hover:bg-indigo-100
+              hover:text-gray-800
+            "
+            >Category</router-link
+          >
+        </div>
         <IconUser />
         <CartIcon />
       </div>
@@ -23,6 +42,9 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { onMounted, computed } from "vue";
+
 import CartIcon from "./CartIcon.vue";
 import LogoAuth from "./LogoAuth.vue";
 import IconUser from "./IconUser.vue";
@@ -33,15 +55,14 @@ export default {
     IconUser,
     CartIcon,
   },
-  data(){
-    return{
-      componentKey:0,
-    }
-  },
-  methods: {
-     forceRerender() {
-      this.componentKey += 1;  
-    }
+  setup() {
+    const store = useStore();
+    onMounted(() => {
+      store.dispatch("getListPurchase");
+    });
+
+    const purchase = computed(() => store.state.purchase);
+    return { purchase };
   },
   mounted() {
     if (sessionStorage.getItem("my-token")) {

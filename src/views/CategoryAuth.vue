@@ -6,7 +6,7 @@
     <div class="">
       <NavVerAuth />
     </div>
-    <div class="container flex flex-row bg-white">
+    <div class="container flex flex-row flex-wrap bg-white">
       <Card
         v-for="product of products" :key="product.idproduct"
         :product="product" 
